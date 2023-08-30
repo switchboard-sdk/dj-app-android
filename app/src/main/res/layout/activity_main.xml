@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="2dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:src="@drawable/switchboard_sdk_logo_text"
+      />
+
+    <LinearLayout
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/playback_rate_label_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@id/playback_rate_left"
+                app:layout_constraintBottom_toBottomOf="@id/playback_rate_left"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/playback_rate_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:paddingVertical="@dimen/slider_vertical_padding"
+                android:value="1.0"
+                android:valueFrom="0.0"
+                android:valueTo="5.0"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toRightOf="@id/playback_rate_label_left"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/playback_rate_left"
+                app:layout_constraintBottom_toTopOf="@id/volume_left"
+                android:stretchColumns="*">
+                <TableRow>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/compressor_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Compressor"
+                        />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/reverb_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Reverb" />
+                </TableRow>
+
+                <TableRow>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/flanger_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Flanger" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/filter_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Filter" />
+                </TableRow>
+            </TableLayout>
+
+
+            <TextView
+                android:id="@+id/vol_label_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vol"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@id/volume_left"
+                app:layout_constraintBottom_toBottomOf="@id/volume_left"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/volume_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:paddingVertical="@dimen/slider_vertical_padding"
+                android:value="1"
+                android:valueFrom="0"
+                android:valueTo="1"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toRightOf="@id/vol_label_left"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/playback_rate_label_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@id/playback_rate_right"
+                app:layout_constraintBottom_toBottomOf="@id/playback_rate_right"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/playback_rate_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:paddingVertical="@dimen/slider_vertical_padding"
+                android:value="1.0"
+                android:valueFrom="0.0"
+                android:valueTo="5.0"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toRightOf="@id/playback_rate_label_right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/playback_rate_right"
+                app:layout_constraintBottom_toTopOf="@id/volume_right"
+                android:stretchColumns="*">
+                <TableRow>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/compressor_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Compressor"
+                        />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/reverb_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Reverb" />
+                </TableRow>
+
+                <TableRow>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/flanger_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Flanger" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/filter_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:text="Filter" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/vol_label_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vol"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@id/volume_right"
+                app:layout_constraintBottom_toBottomOf="@id/volume_right"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/volume_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:paddingVertical="@dimen/slider_vertical_padding"
+                android:value="1"
+                android:valueFrom="0"
+                android:valueTo="1"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toRightOf="@id/vol_label_right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/crossfader"
+            android:layout_width="400dp"
+            android:valueFrom="0.0"
+            android:valueTo="1.0"
+            android:value="0.0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingVertical="@dimen/slider_vertical_padding"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/play_pause_button"
+            app:layout_constraintLeft_toLeftOf="@id/crossfader"
+            app:layout_constraintRight_toRightOf="@id/crossfader"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Play"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
