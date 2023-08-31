@@ -163,5 +163,8 @@ class MainActivity : AppCompatActivity() {
         decorView.systemUiVisibility = uiOptions
     }
 
-
+    override fun onDestroy() {
+        audioEngine.close()
+        super.onDestroy()
+    }
 }

@@ -2,7 +2,6 @@ package com.synervoz.djapp
 
 import com.synervoz.switchboard.sdk.audioengine.AudioEngine
 import com.synervoz.switchboard.sdk.audiograph.AudioGraph
-import com.synervoz.switchboard.sdk.audiographnodes.AudioPlayerNode
 import com.synervoz.switchboard.sdk.audiographnodes.GainNode
 import com.synervoz.switchboard.sdk.audiographnodes.MixerNode
 import com.synervoz.switchboardsuperpowered.audiographnodes.AdvancedAudioPlayerNode
@@ -25,7 +24,6 @@ class MainAudioEngine {
     val reverbNodeRight = ReverbNode()
     val filterNodeLeft = FilterNode()
     val filterNodeRight = FilterNode()
-
     val mixerNode = MixerNode()
     val audioEngine = AudioEngine()
 
@@ -64,8 +62,6 @@ class MainAudioEngine {
 
         audioGraph.connect(mixerNode, audioGraph.outputNode)
         audioEngine.start(audioGraph)
-//        audioGraph.stop()
-
     }
     fun pausePlayback() {
         audioGraph.stop()
@@ -89,9 +85,20 @@ class MainAudioEngine {
 
     fun close() {
         audioEngine.stop()
+        audioGraph.close()
         audioPlayerNodeLeft.close()
         audioPlayerNodeRight.close()
-        audioGraph.close()
+        gainNodeLeft.close()
+        gainNodeRight.close()
+        compressorNodeLeft.close()
+        compressorNodeRight.close()
+        flangerNodeLeft.close()
+        flangerNodeRight.close()
+        reverbNodeLeft.close()
+        reverbNodeRight.close()
+        filterNodeLeft.close()
+        filterNodeRight.close()
+        mixerNode.close()
         audioEngine.close()
     }
 }
