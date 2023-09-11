@@ -18,7 +18,7 @@ This will download the necessary libraries to build the project.
 
 ## About the DJ App
 
-*DJ apps are really popular in the audio app ecosystem, giving both amateur and professional DJs the tools to mix, scratch, and blend music right from their mobile devices. Creating the perfect mix is an art form, and developing an app to support that art is no less challenging*
+*DJ apps are really popular in the audio app ecosystem, giving both amateur and professional DJs the tools to mix, scratch, and blend music right from their mobile devices. Creating the perfect mix is an art form, and developing an app to support that art is no less challenging.*
 
 *The conceptual foundation of a DJ app may seem simple, but the actual execution can get complicated, especially when dealing with real-time audio manipulation and synchronization. Elements like beat-matching, crossfading, must be flawlessly integrated to ensure a seamless user experience.*
 
@@ -36,7 +36,7 @@ The app has the following **features**:
 
 The main screen features volume and effect controls for both tracks, as well as a crossfader that allows for smooth transitions between the tracks.
 
-<img src="./img/dj-app-main-screen.png" width="320" />
+<img src="./img/dj-app-main-screen.png" width="640" />
 
 #### Audio Graph
 
