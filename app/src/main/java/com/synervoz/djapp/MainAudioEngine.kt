@@ -38,7 +38,6 @@ class MainAudioEngine(context: Context) {
         audioGraph.addNode(mixerNode)
         audioGraph.addNode(gainNodeA)
         audioGraph.addNode(gainNodeB)
-
         audioGraph.addNode(compressorNodeA)
         audioGraph.addNode(compressorNodeB)
         audioGraph.addNode(flangerNodeA)
@@ -54,14 +53,12 @@ class MainAudioEngine(context: Context) {
         audioGraph.connect(flangerNodeA, reverbNodeA)
         audioGraph.connect(reverbNodeA, filterNodeA)
         audioGraph.connect(filterNodeA, mixerNode)
-
         audioGraph.connect(audioPlayerNodeB, gainNodeB)
         audioGraph.connect(gainNodeB, compressorNodeB)
         audioGraph.connect(compressorNodeB, flangerNodeB)
         audioGraph.connect(flangerNodeB, reverbNodeB)
         audioGraph.connect(reverbNodeB, filterNodeB)
         audioGraph.connect(filterNodeB, mixerNode)
-
         audioGraph.connect(mixerNode, audioGraph.outputNode)
 
         audioPlayerNodeAWithMasterControl.setNodeToSyncWith(audioPlayerNodeB)
