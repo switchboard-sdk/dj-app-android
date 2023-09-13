@@ -24,30 +24,26 @@ class MainActivity : AppCompatActivity() {
         SwitchboardSDK.initialize("Your client ID", "Your client secret")
         SuperpoweredExtension.initialize("ExampleLicenseKey-WillExpire-OnNextUpdate")
 
-        audioEngine = MainAudioEngine()
+        audioEngine = MainAudioEngine(this)
 
-        loadAudioFiles()
         setupButtons()
         setupVolumeSliders()
         setupEffects()
         setupCrossfader()
+        loadAudioFiles()
     }
 
     private fun setupCrossfader() {
-        audioEngine.gainNodeLeft.gain = (binding.volumeLeft.value * cos(Math.PI / 2 * binding.crossfader.value)).toFloat()
-        audioEngine.gainNodeRight.gain = (binding.volumeRight.value * cos(Math.PI / 2 * (1.0f - binding.crossfader.value))).toFloat()
-
         binding.crossfader.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.gainNodeLeft.gain = (binding.volumeLeft.value * cos(Math.PI / 2 * value)).toFloat()
-            audioEngine.gainNodeRight.gain = (binding.volumeRight.value * cos(Math.PI / 2 * (1.0f - value))).toFloat()
+            audioEngine.setCrossfader(value, binding.volumeLeft.value, binding.volumeRight.value)
         }
     }
 
     private fun setupEffects() {
 
-        binding.playbackRateLeft.value = audioEngine.audioPlayerNodeLeft.playbackRate.toFloat()
+        binding.playbackRateLeft.value = audioEngine.playerNodeWithMasterControl.playbackRate.toFloat()
         binding.playbackRateLeft.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.audioPlayerNodeLeft.playbackRate = value.toDouble()
+            audioEngine.playerNodeWithMasterControl.playbackRate = value.toDouble()
         }
 
         binding.playbackRateRight.value = audioEngine.audioPlayerNodeRight.playbackRate.toFloat()
@@ -125,6 +121,10 @@ class MainActivity : AppCompatActivity() {
             assetFileDescriptorRight.startOffset.toInt(),
             assetFileDescriptorRight.length.toInt()
         )
+
+        audioEngine.setBeatGridInformationA(126.0, 353.0)
+        audioEngine.setBeatGridInformationB(123.0, 40.0)
+        audioEngine.setCrossfader(0.0f, binding.volumeLeft.value, binding.volumeRight.value)
     }
 
     private fun setupVolumeSliders() {
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupButtons() {
         binding.playPauseButton.setOnClickListener {
-            if (audioEngine.audioPlayerNodeLeft.isPlaying) {
+            if (audioEngine.playerNodeWithMasterControl.isPlaying) {
                 audioEngine.pausePlayback()
                 binding.playPauseButton.text = "Play"
             } else {

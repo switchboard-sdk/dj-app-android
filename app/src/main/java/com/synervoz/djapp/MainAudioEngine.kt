@@ -1,5 +1,6 @@
 package com.synervoz.djapp
 
+import android.content.Context
 import com.synervoz.switchboard.sdk.audioengine.AudioEngine
 import com.synervoz.switchboard.sdk.audiograph.AudioGraph
 import com.synervoz.switchboard.sdk.audiographnodes.GainNode
@@ -9,10 +10,11 @@ import com.synervoz.switchboardsuperpowered.audiographnodes.CompressorNode
 import com.synervoz.switchboardsuperpowered.audiographnodes.FilterNode
 import com.synervoz.switchboardsuperpowered.audiographnodes.FlangerNode
 import com.synervoz.switchboardsuperpowered.audiographnodes.ReverbNode
+import kotlin.math.cos
 
-class MainAudioEngine {
+class MainAudioEngine(context: Context) {
     val audioGraph = AudioGraph()
-    val audioPlayerNodeLeft = AdvancedAudioPlayerNode()
+    val playerNodeWithMasterControl = AdvancedAudioPlayerNode()
     val audioPlayerNodeRight = AdvancedAudioPlayerNode()
     val gainNodeLeft = GainNode()
     val gainNodeRight = GainNode()
@@ -25,13 +27,13 @@ class MainAudioEngine {
     val filterNodeLeft = FilterNode()
     val filterNodeRight = FilterNode()
     val mixerNode = MixerNode()
-    val audioEngine = AudioEngine()
+    val audioEngine = AudioEngine(context)
 
     init {
-        audioPlayerNodeLeft.isLoopingEnabled = true
+        playerNodeWithMasterControl.isLoopingEnabled = true
         audioPlayerNodeRight.isLoopingEnabled = true
 
-        audioGraph.addNode(audioPlayerNodeLeft)
+        audioGraph.addNode(playerNodeWithMasterControl)
         audioGraph.addNode(audioPlayerNodeRight)
         audioGraph.addNode(mixerNode)
         audioGraph.addNode(gainNodeLeft)
@@ -46,7 +48,7 @@ class MainAudioEngine {
         audioGraph.addNode(filterNodeLeft)
         audioGraph.addNode(filterNodeRight)
 
-        audioGraph.connect(audioPlayerNodeLeft, gainNodeLeft)
+        audioGraph.connect(playerNodeWithMasterControl, gainNodeLeft)
         audioGraph.connect(gainNodeLeft, compressorNodeLeft)
         audioGraph.connect(compressorNodeLeft, flangerNodeLeft)
         audioGraph.connect(flangerNodeLeft, reverbNodeLeft)
@@ -61,32 +63,56 @@ class MainAudioEngine {
         audioGraph.connect(filterNodeRight, mixerNode)
 
         audioGraph.connect(mixerNode, audioGraph.outputNode)
+
+        playerNodeWithMasterControl.setNodeToSyncWith(audioPlayerNodeRight)
+
         audioEngine.start(audioGraph)
     }
     fun pausePlayback() {
         audioGraph.stop()
-        audioPlayerNodeLeft.pause()
+        playerNodeWithMasterControl.pause()
         audioPlayerNodeRight.pause()
     }
 
     fun startPlayback() {
-        audioPlayerNodeLeft.play()
-        audioPlayerNodeRight.play()
+        if (playerNodeWithMasterControl.isMaster) {
+            playerNodeWithMasterControl.play()
+            audioPlayerNodeRight.playSynchronized()
+        } else {
+            playerNodeWithMasterControl.playSynchronized()
+            audioPlayerNodeRight.play()
+        }
+
         audioGraph.start()
     }
 
     fun loadLeft(packageResourcePath: String, fileOffset: Int, fileLength: Int) {
-        audioPlayerNodeLeft.loadFromAssetFile(packageResourcePath, fileOffset, fileLength)
+        playerNodeWithMasterControl.loadFromAssetFile(packageResourcePath, fileOffset, fileLength)
     }
 
     fun loadRight(packageResourcePath: String, fileOffset: Int, fileLength: Int) {
         audioPlayerNodeRight.loadFromAssetFile(packageResourcePath, fileOffset, fileLength)
     }
 
+    fun setBeatGridInformationA(originalBPM: Double, firstBeatMs: Double) {
+        playerNodeWithMasterControl.setBeatGridInformation(originalBPM, firstBeatMs)
+    }
+
+    fun setBeatGridInformationB(originalBPM: Double, firstBeatMs: Double) {
+        audioPlayerNodeRight.setBeatGridInformation(originalBPM, firstBeatMs)
+    }
+
+    fun setCrossfader(crossFaderPosition: Float, volumeA: Float, volumeB: Float) {
+        gainNodeLeft.gain = (volumeA * cos(Math.PI / 2 * crossFaderPosition)).toFloat()
+        gainNodeRight.gain = (volumeB * cos(Math.PI / 2 * (1 - crossFaderPosition))).toFloat()
+
+        playerNodeWithMasterControl.isMaster = crossFaderPosition <= 0.5
+    }
+
     fun close() {
         audioEngine.stop()
         audioGraph.close()
-        audioPlayerNodeLeft.close()
+        playerNodeWithMasterControl.close()
         audioPlayerNodeRight.close()
         gainNodeLeft.close()
         gainNodeRight.close()
