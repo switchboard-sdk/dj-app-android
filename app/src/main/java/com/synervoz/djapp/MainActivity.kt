@@ -40,54 +40,54 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupEffects() {
 
-        binding.playbackRateA.value = audioEngine.audioPlayerNodeBWithMasterControl.playbackRate.toFloat()
+        binding.playbackRateA.value = audioEngine.getPlaybackRateA().toFloat()
         binding.playbackRateA.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.audioPlayerNodeBWithMasterControl.playbackRate = value.toDouble()
+            audioEngine.setPlaybackRateA(value)
         }
 
-        binding.playbackRateB.value = audioEngine.audioPlayerNodeB.playbackRate.toFloat()
+        binding.playbackRateB.value = audioEngine.getPlaybackRateB().toFloat()
         binding.playbackRateB.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.audioPlayerNodeB.playbackRate = value.toDouble()
+            audioEngine.setPlaybackRateB(value)
         }
 
         binding.compressorA.isChecked = audioEngine.compressorNodeA.isEnabled
         binding.compressorA.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.compressorNodeA.isEnabled = isChecked
+            audioEngine.enableCompressorA(isChecked)
         }
 
         binding.flangerA.isChecked = audioEngine.flangerNodeA.isEnabled
         binding.flangerA.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.flangerNodeA.isEnabled = isChecked
+            audioEngine.enableFlangerA(isChecked)
         }
 
         binding.reverbA.isChecked = audioEngine.reverbNodeA.isEnabled
         binding.reverbA.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.reverbNodeA.isEnabled = isChecked
+            audioEngine.enableReverbA(isChecked)
         }
 
         binding.filterA.isChecked = audioEngine.filterNodeA.isEnabled
         binding.filterA.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.filterNodeA.isEnabled = isChecked
+            audioEngine.enableFilterA(isChecked)
         }
 
         binding.compressorB.isChecked = audioEngine.compressorNodeB.isEnabled
         binding.compressorB.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.compressorNodeB.isEnabled = isChecked
+            audioEngine.enableCompressorB(isChecked)
         }
 
         binding.flangerB.isChecked = audioEngine.flangerNodeB.isEnabled
         binding.flangerB.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.flangerNodeB.isEnabled = isChecked
+            audioEngine.enableFlangerB(isChecked)
         }
 
         binding.reverbB.isChecked = audioEngine.reverbNodeB.isEnabled
         binding.reverbB.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.reverbNodeB.isEnabled = isChecked
+            audioEngine.enableReverbB(isChecked)
         }
 
         binding.filterB.isChecked = audioEngine.filterNodeB.isEnabled
         binding.filterB.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.filterNodeB.isEnabled = isChecked
+            audioEngine.enableFilterB(isChecked)
 
         }
     }
@@ -129,18 +129,18 @@ class MainActivity : AppCompatActivity() {
     private fun setupVolumeSliders() {
         binding.volumeA.value = audioEngine.gainNodeA.gain
         binding.volumeA.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.gainNodeA.gain = value
+            audioEngine.setVolumeA(value)
         }
 
         binding.volumeB.value = audioEngine.gainNodeB.gain
         binding.volumeB.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.gainNodeB.gain = value
+            audioEngine.setVolumeB(value)
         }
     }
 
     private fun setupButtons() {
         binding.playPauseButton.setOnClickListener {
-            if (audioEngine.audioPlayerNodeBWithMasterControl.isPlaying) {
+            if (audioEngine.isPlaying) {
                 audioEngine.pausePlayback()
                 binding.playPauseButton.text = "Play"
             } else {

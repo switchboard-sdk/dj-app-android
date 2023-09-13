@@ -14,7 +14,7 @@ import kotlin.math.cos
 
 class MainAudioEngine(context: Context) {
     val audioGraph = AudioGraph()
-    val audioPlayerNodeBWithMasterControl = AdvancedAudioPlayerNode()
+    val audioPlayerNodeAWithMasterControl = AdvancedAudioPlayerNode()
     val audioPlayerNodeB = AdvancedAudioPlayerNode()
     val gainNodeA = GainNode()
     val gainNodeB = GainNode()
@@ -30,10 +30,10 @@ class MainAudioEngine(context: Context) {
     val audioEngine = AudioEngine(context)
 
     init {
-        audioPlayerNodeBWithMasterControl.isLoopingEnabled = true
+        audioPlayerNodeAWithMasterControl.isLoopingEnabled = true
         audioPlayerNodeB.isLoopingEnabled = true
 
-        audioGraph.addNode(audioPlayerNodeBWithMasterControl)
+        audioGraph.addNode(audioPlayerNodeAWithMasterControl)
         audioGraph.addNode(audioPlayerNodeB)
         audioGraph.addNode(mixerNode)
         audioGraph.addNode(gainNodeA)
@@ -48,7 +48,7 @@ class MainAudioEngine(context: Context) {
         audioGraph.addNode(filterNodeA)
         audioGraph.addNode(filterNodeB)
 
-        audioGraph.connect(audioPlayerNodeBWithMasterControl, gainNodeA)
+        audioGraph.connect(audioPlayerNodeAWithMasterControl, gainNodeA)
         audioGraph.connect(gainNodeA, compressorNodeA)
         audioGraph.connect(compressorNodeA, flangerNodeA)
         audioGraph.connect(flangerNodeA, reverbNodeA)
@@ -64,22 +64,28 @@ class MainAudioEngine(context: Context) {
 
         audioGraph.connect(mixerNode, audioGraph.outputNode)
 
-        audioPlayerNodeBWithMasterControl.setNodeToSyncWith(audioPlayerNodeB)
+        audioPlayerNodeAWithMasterControl.setNodeToSyncWith(audioPlayerNodeB)
 
         audioEngine.start(audioGraph)
     }
+
+    val isPlaying: Boolean
+        get() {
+            return audioPlayerNodeAWithMasterControl.isPlaying || audioPlayerNodeB.isPlaying
+        }
+
     fun pausePlayback() {
         audioGraph.stop()
-        audioPlayerNodeBWithMasterControl.pause()
+        audioPlayerNodeAWithMasterControl.pause()
         audioPlayerNodeB.pause()
     }
 
     fun startPlayback() {
-        if (audioPlayerNodeBWithMasterControl.isMaster) {
-            audioPlayerNodeBWithMasterControl.play()
+        if (audioPlayerNodeAWithMasterControl.isMaster) {
+            audioPlayerNodeAWithMasterControl.play()
             audioPlayerNodeB.playSynchronized()
         } else {
-            audioPlayerNodeBWithMasterControl.playSynchronized()
+            audioPlayerNodeAWithMasterControl.playSynchronized()
             audioPlayerNodeB.play()
         }
 
@@ -87,7 +93,7 @@ class MainAudioEngine(context: Context) {
     }
 
     fun loadA(packageResourcePath: String, fileOffset: Int, fileLength: Int) {
-        audioPlayerNodeBWithMasterControl.loadFromAssetFile(packageResourcePath, fileOffset, fileLength)
+        audioPlayerNodeAWithMasterControl.loadFromAssetFile(packageResourcePath, fileOffset, fileLength)
     }
 
     fun loadB(packageResourcePath: String, fileOffset: Int, fileLength: Int) {
@@ -95,7 +101,7 @@ class MainAudioEngine(context: Context) {
     }
 
     fun setBeatGridInformationA(originalBPM: Double, firstBeatMs: Double) {
-        audioPlayerNodeBWithMasterControl.setBeatGridInformation(originalBPM, firstBeatMs)
+        audioPlayerNodeAWithMasterControl.setBeatGridInformation(originalBPM, firstBeatMs)
     }
 
     fun setBeatGridInformationB(originalBPM: Double, firstBeatMs: Double) {
@@ -106,13 +112,65 @@ class MainAudioEngine(context: Context) {
         gainNodeA.gain = (volumeA * cos(Math.PI / 2 * crossFaderPosition)).toFloat()
         gainNodeB.gain = (volumeB * cos(Math.PI / 2 * (1 - crossFaderPosition))).toFloat()
 
-        audioPlayerNodeBWithMasterControl.isMaster = crossFaderPosition <= 0.5
+        audioPlayerNodeAWithMasterControl.isMaster = crossFaderPosition <= 0.5
+    }
+
+    fun getPlaybackRateA() = audioPlayerNodeAWithMasterControl.playbackRate
+
+    fun getPlaybackRateB() = audioPlayerNodeB.playbackRate
+
+    fun setPlaybackRateA(rate: Float) {
+        audioPlayerNodeAWithMasterControl.playbackRate = rate.toDouble()
+    }
+
+    fun setPlaybackRateB(rate: Float) {
+        audioPlayerNodeB.playbackRate = rate.toDouble()
+    }
+
+    fun setVolumeA(volume: Float) {
+        gainNodeA.gain = volume
+    }
+
+    fun setVolumeB(volume: Float) {
+        gainNodeB.gain = volume
+    }
+
+    fun enableFilterA(enable: Boolean) {
+        filterNodeA.isEnabled = enable
+    }
+
+    fun enableFlangerA(enable: Boolean) {
+        flangerNodeA.isEnabled = enable
+    }
+
+    fun enableCompressorA(enable: Boolean) {
+        compressorNodeA.isEnabled = enable
+    }
+
+    fun enableReverbA(enable: Boolean) {
+        reverbNodeA.isEnabled = enable
+    }
+
+    fun enableFilterB(enable: Boolean) {
+        filterNodeB.isEnabled = enable
+    }
+
+    fun enableFlangerB(enable: Boolean) {
+        flangerNodeB.isEnabled = enable
+    }
+
+    fun enableCompressorB(enable: Boolean) {
+        compressorNodeB.isEnabled = enable
+    }
+
+    fun enableReverbB(enable: Boolean) {
+        reverbNodeB.isEnabled = enable
     }
 
     fun close() {
         audioEngine.stop()
         audioGraph.close()
-        audioPlayerNodeBWithMasterControl.close()
+        audioPlayerNodeAWithMasterControl.close()
         audioPlayerNodeB.close()
         gainNodeA.close()
         gainNodeB.close()
