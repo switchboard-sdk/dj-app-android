@@ -30,9 +30,6 @@ class MainAudioEngine(context: Context) {
     val audioEngine = AudioEngine(context)
 
     init {
-        audioPlayerNodeAWithMasterControl.isLoopingEnabled = true
-        audioPlayerNodeB.isLoopingEnabled = true
-
         audioGraph.addNode(audioPlayerNodeAWithMasterControl)
         audioGraph.addNode(audioPlayerNodeB)
         audioGraph.addNode(mixerNode)
@@ -60,6 +57,9 @@ class MainAudioEngine(context: Context) {
         audioGraph.connect(reverbNodeB, filterNodeB)
         audioGraph.connect(filterNodeB, mixerNode)
         audioGraph.connect(mixerNode, audioGraph.outputNode)
+
+        audioPlayerNodeAWithMasterControl.isLoopingEnabled = true
+        audioPlayerNodeB.isLoopingEnabled = true
 
         audioPlayerNodeAWithMasterControl.setNodeToSyncWith(audioPlayerNodeB)
 
