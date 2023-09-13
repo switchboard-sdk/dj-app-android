@@ -9,7 +9,6 @@ import com.synervoz.switchboard.sdk.SwitchboardSDK
 import com.synervoz.switchboard.sdk.logger.Logger
 import com.synervoz.switchboardsuperpowered.SuperpoweredExtension
 import java.io.IOException
-import kotlin.math.cos
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,60 +34,60 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupCrossfader() {
         binding.crossfader.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.setCrossfader(value, binding.volumeLeft.value, binding.volumeRight.value)
+            audioEngine.setCrossfader(value, binding.volumeA.value, binding.volumeB.value)
         }
     }
 
     private fun setupEffects() {
 
-        binding.playbackRateLeft.value = audioEngine.playerNodeWithMasterControl.playbackRate.toFloat()
-        binding.playbackRateLeft.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.playerNodeWithMasterControl.playbackRate = value.toDouble()
+        binding.playbackRateA.value = audioEngine.audioPlayerNodeBWithMasterControl.playbackRate.toFloat()
+        binding.playbackRateA.addOnChangeListener { slider, value, fromUser ->
+            audioEngine.audioPlayerNodeBWithMasterControl.playbackRate = value.toDouble()
         }
 
-        binding.playbackRateRight.value = audioEngine.audioPlayerNodeRight.playbackRate.toFloat()
-        binding.playbackRateRight.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.audioPlayerNodeRight.playbackRate = value.toDouble()
+        binding.playbackRateB.value = audioEngine.audioPlayerNodeB.playbackRate.toFloat()
+        binding.playbackRateB.addOnChangeListener { slider, value, fromUser ->
+            audioEngine.audioPlayerNodeB.playbackRate = value.toDouble()
         }
 
-        binding.compressorLeft.isChecked = audioEngine.compressorNodeLeft.isEnabled
-        binding.compressorLeft.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.compressorNodeLeft.isEnabled = isChecked
+        binding.compressorA.isChecked = audioEngine.compressorNodeA.isEnabled
+        binding.compressorA.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.compressorNodeA.isEnabled = isChecked
         }
 
-        binding.flangerLeft.isChecked = audioEngine.flangerNodeLeft.isEnabled
-        binding.flangerLeft.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.flangerNodeLeft.isEnabled = isChecked
+        binding.flangerA.isChecked = audioEngine.flangerNodeA.isEnabled
+        binding.flangerA.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.flangerNodeA.isEnabled = isChecked
         }
 
-        binding.reverbLeft.isChecked = audioEngine.reverbNodeLeft.isEnabled
-        binding.reverbLeft.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.reverbNodeLeft.isEnabled = isChecked
+        binding.reverbA.isChecked = audioEngine.reverbNodeA.isEnabled
+        binding.reverbA.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.reverbNodeA.isEnabled = isChecked
         }
 
-        binding.filterLeft.isChecked = audioEngine.filterNodeLeft.isEnabled
-        binding.filterLeft.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.filterNodeLeft.isEnabled = isChecked
+        binding.filterA.isChecked = audioEngine.filterNodeA.isEnabled
+        binding.filterA.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.filterNodeA.isEnabled = isChecked
         }
 
-        binding.compressorRight.isChecked = audioEngine.compressorNodeRight.isEnabled
-        binding.compressorRight.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.compressorNodeRight.isEnabled = isChecked
+        binding.compressorB.isChecked = audioEngine.compressorNodeB.isEnabled
+        binding.compressorB.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.compressorNodeB.isEnabled = isChecked
         }
 
-        binding.flangerRight.isChecked = audioEngine.flangerNodeRight.isEnabled
-        binding.flangerRight.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.flangerNodeRight.isEnabled = isChecked
+        binding.flangerB.isChecked = audioEngine.flangerNodeB.isEnabled
+        binding.flangerB.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.flangerNodeB.isEnabled = isChecked
         }
 
-        binding.reverbRight.isChecked = audioEngine.reverbNodeRight.isEnabled
-        binding.reverbRight.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.reverbNodeRight.isEnabled = isChecked
+        binding.reverbB.isChecked = audioEngine.reverbNodeB.isEnabled
+        binding.reverbB.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.reverbNodeB.isEnabled = isChecked
         }
 
-        binding.filterRight.isChecked = audioEngine.filterNodeRight.isEnabled
-        binding.filterRight.setOnCheckedChangeListener { compoundButton, isChecked ->
-            audioEngine.filterNodeRight.isEnabled = isChecked
+        binding.filterB.isChecked = audioEngine.filterNodeB.isEnabled
+        binding.filterB.setOnCheckedChangeListener { compoundButton, isChecked ->
+            audioEngine.filterNodeB.isEnabled = isChecked
 
         }
     }
@@ -96,52 +95,52 @@ class MainActivity : AppCompatActivity() {
     fun loadAudioFiles() {
         // Files under res/raw are not zipped, just copied into the APK.
         // Get the offset and length to know where our file is located.
-        val assetFileDescriptorLeft = assets.openFd("lycka.mp3")
+        val assetFileDescriptorA = assets.openFd("lycka.mp3")
         try {
-            assetFileDescriptorLeft.parcelFileDescriptor.close()
+            assetFileDescriptorA.parcelFileDescriptor.close()
         } catch (e: IOException) {
             Logger.debug("Could not close asset file!")
         }
 
-        audioEngine.loadLeft(
+        audioEngine.loadA(
             packageResourcePath,
-            assetFileDescriptorLeft.startOffset.toInt(),
-            assetFileDescriptorLeft.length.toInt()
+            assetFileDescriptorA.startOffset.toInt(),
+            assetFileDescriptorA.length.toInt()
         )
 
-        val assetFileDescriptorRight = assets.openFd("nuyorica.m4a")
+        val assetFileDescriptorB = assets.openFd("nuyorica.m4a")
         try {
-            assetFileDescriptorRight.parcelFileDescriptor.close()
+            assetFileDescriptorB.parcelFileDescriptor.close()
         } catch (e: IOException) {
             Logger.debug("Could not close asset file!")
         }
 
-        audioEngine.loadRight(
+        audioEngine.loadB(
             packageResourcePath,
-            assetFileDescriptorRight.startOffset.toInt(),
-            assetFileDescriptorRight.length.toInt()
+            assetFileDescriptorB.startOffset.toInt(),
+            assetFileDescriptorB.length.toInt()
         )
 
         audioEngine.setBeatGridInformationA(126.0, 353.0)
         audioEngine.setBeatGridInformationB(123.0, 40.0)
-        audioEngine.setCrossfader(0.0f, binding.volumeLeft.value, binding.volumeRight.value)
+        audioEngine.setCrossfader(0.0f, binding.volumeA.value, binding.volumeB.value)
     }
 
     private fun setupVolumeSliders() {
-        binding.volumeLeft.value = audioEngine.gainNodeLeft.gain
-        binding.volumeLeft.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.gainNodeLeft.gain = value
+        binding.volumeA.value = audioEngine.gainNodeA.gain
+        binding.volumeA.addOnChangeListener { slider, value, fromUser ->
+            audioEngine.gainNodeA.gain = value
         }
 
-        binding.volumeRight.value = audioEngine.gainNodeRight.gain
-        binding.volumeRight.addOnChangeListener { slider, value, fromUser ->
-            audioEngine.gainNodeRight.gain = value
+        binding.volumeB.value = audioEngine.gainNodeB.gain
+        binding.volumeB.addOnChangeListener { slider, value, fromUser ->
+            audioEngine.gainNodeB.gain = value
         }
     }
 
     private fun setupButtons() {
         binding.playPauseButton.setOnClickListener {
-            if (audioEngine.playerNodeWithMasterControl.isPlaying) {
+            if (audioEngine.audioPlayerNodeBWithMasterControl.isPlaying) {
                 audioEngine.pausePlayback()
                 binding.playPauseButton.text = "Play"
             } else {

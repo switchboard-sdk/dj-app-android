@@ -28,19 +28,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/playback_rate_label_left"
+                android:id="@+id/playback_rate_label_A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rate"
                 android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/playback_rate_left"
-                app:layout_constraintBottom_toBottomOf="@id/playback_rate_left"
+                app:layout_constraintTop_toTopOf="@id/playback_rate_A"
+                app:layout_constraintBottom_toBottomOf="@id/playback_rate_A"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
 
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/playback_rate_left"
+                android:id="@+id/playback_rate_A"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -49,7 +49,7 @@
                 android:valueFrom="0.0"
                 android:valueTo="5.0"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@id/playback_rate_label_left"
+                app:layout_constraintLeft_toRightOf="@id/playback_rate_label_A"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,19 +59,19 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/playback_rate_left"
-                app:layout_constraintBottom_toTopOf="@id/volume_left"
+                app:layout_constraintTop_toBottomOf="@id/playback_rate_A"
+                app:layout_constraintBottom_toTopOf="@id/volume_A"
                 android:stretchColumns="*">
                 <TableRow>
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/compressor_left"
+                        android:id="@+id/compressor_A"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="Compressor"
                         />
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/reverb_left"
+                        android:id="@+id/reverb_A"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
@@ -80,13 +80,13 @@
 
                 <TableRow>
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/flanger_left"
+                        android:id="@+id/flanger_A"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="Flanger" />
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/filter_left"
+                        android:id="@+id/filter_A"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
@@ -96,18 +96,18 @@
 
 
             <TextView
-                android:id="@+id/vol_label_left"
+                android:id="@+id/vol_label_A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vol"
                 android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/volume_left"
-                app:layout_constraintBottom_toBottomOf="@id/volume_left"
+                app:layout_constraintTop_toTopOf="@id/volume_A"
+                app:layout_constraintBottom_toBottomOf="@id/volume_A"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/volume_left"
+                android:id="@+id/volume_A"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -116,7 +116,7 @@
                 android:valueFrom="0"
                 android:valueTo="1"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@id/vol_label_left"
+                app:layout_constraintLeft_toRightOf="@id/vol_label_A"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -128,19 +128,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/playback_rate_label_right"
+                android:id="@+id/playback_rate_label_B"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rate"
                 android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/playback_rate_right"
-                app:layout_constraintBottom_toBottomOf="@id/playback_rate_right"
+                app:layout_constraintTop_toTopOf="@id/playback_rate_B"
+                app:layout_constraintBottom_toBottomOf="@id/playback_rate_B"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
 
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/playback_rate_right"
+                android:id="@+id/playback_rate_B"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -149,7 +149,7 @@
                 android:valueFrom="0.0"
                 android:valueTo="5.0"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@id/playback_rate_label_right"
+                app:layout_constraintLeft_toRightOf="@id/playback_rate_label_B"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,19 +159,19 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/playback_rate_right"
-                app:layout_constraintBottom_toTopOf="@id/volume_right"
+                app:layout_constraintTop_toBottomOf="@id/playback_rate_B"
+                app:layout_constraintBottom_toTopOf="@id/volume_B"
                 android:stretchColumns="*">
                 <TableRow>
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/compressor_right"
+                        android:id="@+id/compressor_B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="Compressor"
                         />
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/reverb_right"
+                        android:id="@+id/reverb_B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
@@ -180,13 +180,13 @@
 
                 <TableRow>
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/flanger_right"
+                        android:id="@+id/flanger_B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="Flanger" />
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/filter_right"
+                        android:id="@+id/filter_B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
@@ -195,18 +195,18 @@
             </TableLayout>
 
             <TextView
-                android:id="@+id/vol_label_right"
+                android:id="@+id/vol_label_B"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vol"
                 android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/volume_right"
-                app:layout_constraintBottom_toBottomOf="@id/volume_right"
+                app:layout_constraintTop_toTopOf="@id/volume_B"
+                app:layout_constraintBottom_toBottomOf="@id/volume_B"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/volume_right"
+                android:id="@+id/volume_B"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -215,7 +215,7 @@
                 android:valueFrom="0"
                 android:valueTo="1"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@id/vol_label_right"
+                app:layout_constraintLeft_toRightOf="@id/vol_label_B"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
