@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setFullScreen()
         setContentView(binding.root)
 
-        SwitchboardSDK.initialize("Your client ID", "Your client secret")
+        SwitchboardSDK.initialize(this, "Your client ID", "Your client secret")
         SuperpoweredExtension.initialize("ExampleLicenseKey-WillExpire-OnNextUpdate")
 
         audioEngine = MainAudioEngine(this)
